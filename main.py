@@ -42,7 +42,7 @@ def Volum(play):
     PlayPause.grid(row=3, column=(pos-1))
 
     Kill = tk.Button(root, text="X")
-    Kill["command"] = lambda widget = Kill: Order66(play, Slider, kill, PlayPause)
+    Kill["command"] = lambda widget = Kill: Order66(play, Slider, Kill, PlayPause)
     Kill.grid(row=3, column=pos)
 
 
