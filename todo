@@ -1,0 +1,12 @@
+SoundBoard Main:
+    -fix ui
+        --gör saker snyggare
+        --scroleble
+        --placeringen på knappar
+    -säg till att alla knappar funkar
+        --avstängande knapp
+    -funktioner
+        --ge namn till activa ljud
+        --kunna spara länken, namnen och taggen
+        --ladda dessa sparade länkar
+        --sök funktion (lables kanske)

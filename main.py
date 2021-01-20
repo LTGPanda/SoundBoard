@@ -1,58 +1,34 @@
-import tkinter as tk
 import VideoClass as VC
+from kivy.app import App
+#https://github.com/inclement/kivycrashcourse
+from kivy.config import Config
+Config.set('graphics', 'width', '1000')
+Config.set('graphics', 'height', '500')
 
+from kivy.uix.boxlayout import BoxLayout
 
 global ActivPlayers, ent, Sliddas
 ActivPlayers, Sliddas = [], []
 
-def ButtClick():
-    Play = VC.Playa(ent.get(), None)
-    Play.PlayCon()
-    ActivPlayers.append(Play)
-    Volum(Play.Instas)
+class MainSetup(BoxLayout):
+    def get_slider_val(self, *args):
+        label = self.ids['Slider_val']
+        slidy = self.ids['Da_Slider']
 
-def VolumCommand(widget, play):
-    CUM = int(round(widget.get()/2))
+        label.text = str(int(slidy.value))
 
-    play.audio_set_volume(CUM)
+    def Add_Sound_Control(self, *args):
+        Added_Lad = SoundControl()
+        MainApp = self.ids['Main_Box']
+        MainApp.add_widget(Added_Lad)
 
-def BigPP(play):
-    play.pause()
-
-def Order66(play, Slider, kill, PlayPause):
-    ActivPlayers.remove(play)
-
-    Slider.destroy()
-    kill.destroy()
-    PlayPause.destroy()
-
-    play.stop()
-    #behöver lägga om allt i ui. maar wat nou als ik nie will?
-
-def Volum(play):
-    Slider = tk.Scale(root, from_=200, to=0,)
-    Slider.set(100)
-    Sliddas.append(Slider)
-    pos = len(Sliddas) * 2
-    Slider.grid(row=4, column=(pos - 1))
-    Slider["command"] = lambda Widget = Slider: VolumCommand(Slider, play)
-
-    PlayPause = tk.Button(root, text="P/P")
-    PlayPause["command"] = lambda widget = PlayPause: BigPP(play)
-    PlayPause.grid(row=3, column=(pos-1))
-
-    Kill = tk.Button(root, text="X")
-    Kill["command"] = lambda widget = Kill: Order66(play, Slider, Kill, PlayPause)
-    Kill.grid(row=3, column=pos)
+class SoundControl(BoxLayout):
+    pass
+ 
+class SoundBoardApp(App):
+    def build(self):
+        return MainSetup()
 
 
-root = tk.Tk()
-root.geometry("1000x500")
-root.title("Fugly SoundBoard")
-ent = tk.Entry(root)
-ent.grid(row=0, column=1)
-BUTT = tk.Button(root, text="...", command=ButtClick)
-BUTT.grid(row=0, column=2)
-
-
-root.mainloop()
+if __name__ == '__main__':
+    SoundBoardApp().run()
