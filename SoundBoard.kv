@@ -1,4 +1,4 @@
-
+#:kivy 2.0.0
 <MainSetup>:
     orientation: 'vertical'
     id: Main_Box
@@ -10,6 +10,7 @@
             padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
         Button:
             size_hint_x: None
+            on_press: root.Add_Sound_Control()
             width: 100
             text:'...'
     ScrollView:
@@ -35,18 +36,19 @@
         step: 1
         id: Da_Slider
         sensitivity: 'handle'
-        on_touch_move: root.get_slider_val()
         size_hint_y: None
         height: 200
     BoxLayout:
         Widget:
         Button:
             text: 'X'
+            id: Death
             size_hint: None, None
             height: 30
             width: 30
         Button:
             text: 'P/P'
+            id: PP
             size_hint: None, None
             height: 30
             width: 30
