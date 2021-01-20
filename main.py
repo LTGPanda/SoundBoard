@@ -12,7 +12,7 @@ ActivPlayers, Sliddas = [], []
 
 
 class SoundControl(BoxLayout):
-    def VolComand(Slider):
+    def VolComand(self, Slider, play):
             CUM = int(round(Slider.ids['Da_Slider'].value/2))
 
             play.audio_set_volume(CUM)
@@ -45,10 +45,11 @@ class MainSetup(BoxLayout):
         MainApp = self.ids['Scroller']
         MainApp.add_widget(Added_Lad)
 
-        Play = VC.Playa(self.ids['Link_input'].text)
-        label.on_touch_move(Added_Lad.VolComand(Added_Lad))
-
-
+        Play = VC.Playa(str(self.ids['Link_input'].text), None)
+        Play.PlayCon()
+        ActivPlayers.append(Play)
+        Added_Lad.ids['Da_Slider'].on_touch_move(Added_Lad.VolComand(Added_Lad, Play.Instas))
+        
         Added_Lad.ids['Death'].on_press(Added_Lad.Order66(Play))
         Added_Lad.ids['PP'].on_press(Added_Lad.BigPP(Play, Sliddas))
 

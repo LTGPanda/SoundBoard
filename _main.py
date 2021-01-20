@@ -34,6 +34,8 @@ def Volum(play):
     Sliddas.append(Slider)
     pos = len(Sliddas) * 2
     Slider.grid(row=4, column=(pos - 1))
+
+    #non-setup
     Slider["command"] = lambda Widget = Slider: VolumCommand(Slider, play)
 
     PlayPause = tk.Button(root, text="P/P")

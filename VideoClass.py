@@ -1,4 +1,4 @@
-import pafy, vlc
+import pafy, vlc, youtube_dl
 
 class Playa(object):
     def __init__(self, Url, Instas):
@@ -7,6 +7,7 @@ class Playa(object):
     
     def PlayCon(self):
         if self.Url != None:
+            print(self.Url)
             video = pafy.new(self.Url)
             best = video.getbestaudio()
             playUrl = best.url
@@ -23,3 +24,4 @@ class Playa(object):
 
             player.audio_set_volume(50)
             self.Instas = player
+
