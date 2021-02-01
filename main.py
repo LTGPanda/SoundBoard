@@ -2,29 +2,41 @@ import VideoClass as VC
 from kivy.app import App
 #https://github.com/inclement/kivycrashcourse
 from kivy.config import Config
+from kivy.properties import ObjectProperty
+from kivy.clock import Clock
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '500')
 
 from kivy.uix.boxlayout import BoxLayout
-global LastPlayer, LastControll
 global ActivPlayers, ent, Sliddas
 ActivPlayers, Sliddas = [], []
 
 class SoundControl(BoxLayout):
-    def __init__(self, play, **kwargs):
+    The_Slider = ObjectProperty()
+    def __init__(self, play, root, **kwargs):
         self.Play = play
-        self.ids['Da_Slider'].on_touch_move(self.VolComand(self, self.Play.Instas))
-        self.ids['Death'].on_press(self.Order66(self.Play))
-        self.ids['PP'].on_press(self.BigPP(self.Play, Sliddas))
-        super(play, self).__init__(**kwargs)
+        self.root = root
+        super(SoundControl, self).__init__(**kwargs)
+        #Clock.schedule_once(self.initUI())
 
-    def VolComand(self, Slider, play):
-            CUM = int(round(Slider.ids['Da_Slider'].value/2))
+    def initUI(self):
+        #self.Slider = self.ids['Da_Slider']
+        self.Death = self.ids['Death']
+        self.PP = self.ids['PP']
+        #self.ids.The_Slider.VolComand.bind(on_touch_move = lambda *args: self.VolComand())
+        #self.The_Slider.VolComand.bind(on_touch_move = lambda *args: self.VolComand())
+        #self.VolComand(self, self.Play.Instas)
+        #self.Death.on_press(self.Order66(self.Play))
+        #self.PP.on_press(self.BigPP(self.Play, Sliddas))
 
-            play.audio_set_volume(CUM)
+    def VolComand(self):
+            CUM = int(round(self.ids['The_Slider'].value/2))
+            self.Play.tester()
+            self.Play.pause()
+            #self.Play.audio_set_volume(CUM)
 
             label = self.ids['Slider_val']
-            slidy = self.ids['Da_Slider']
+            slidy = self.ids['The_Slider']
             label.text = str(int(slidy.value))
 
     def BigPP(play):
@@ -52,14 +64,13 @@ class MainSetup(BoxLayout):
 
         Play = VC.Playa(str(self.ids['Link_input'].text), None)
         Play.PlayCon()
-        Added_Lad = SoundControl(Play)
+        Play.tester()
+        Added_Lad = SoundControl(Play, self)
         MainApp.add_widget(Added_Lad)
         Sliddas.append(Added_Lad)
         ActivPlayers.append(Play)
-        #Event_Binder(self, Added_Lad, Play)
         LastPlayer = Play
         LastControll = Added_Lad
-
         #Added_Lad.ids['Da_Slider'].on_touch_move(Added_Lad.VolComand(Added_Lad, Play.Instas))
         #Event_Binder(Added_Lad, Play)
         #Exception has occurred: AttributeError

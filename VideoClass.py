@@ -4,6 +4,9 @@ class Playa(object):
     def __init__(self, Url, Instas):
         self.Url = Url
         self.Instas = Instas
+
+    def tester(self):
+        print("u frigging cunter")
     
     def PlayCon(self):
         if self.Url != None:
