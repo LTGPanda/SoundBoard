@@ -5,8 +5,14 @@ class Playa(object):
         self.Url = Url
         self.Instas = Instas
 
-    def tester(self):
-        print("u frigging cunter")
+    def VolSet(self, vol):
+        self.Instas.audio_set_volume(vol)
+
+    def PauseSound(self):
+        self.Instas.pause()
+    
+    def StopSound(self):
+        self.Instas.stop()
     
     def PlayCon(self):
         if self.Url != None:
