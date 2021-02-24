@@ -6,6 +6,7 @@ SoundBoard Main:
     -säg till att alla knappar funkar
         --avstängande knapp
     -funktioner
+        --databass från rbp
         --ge namn till activa ljud
         --kunna spara länken, namnen och taggen
         --ladda dessa sparade länkar

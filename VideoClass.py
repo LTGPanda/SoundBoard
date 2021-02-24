@@ -13,6 +13,9 @@ class Playa(object):
     
     def StopSound(self):
         self.Instas.stop()
+
+    def GetUrl(self):
+        return self.Url
     
     def PlayCon(self):
         if self.Url != None:

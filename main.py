@@ -1,4 +1,5 @@
 import VideoClass as VC
+import json
 from kivy.app import App
 #https://github.com/inclement/kivycrashcourse
 #https://www.xspdf.com/resolution/57414007.html
@@ -32,6 +33,16 @@ class SoundControl(BoxLayout):
     def BigPP(self):
         self.Play.PauseSound()
 
+    def SaveLad(self):
+        Save_Data = {
+            'Name': str(self.ids['SoundName'].text),
+            'Link' : str(self.Play.GetUrl())
+        }
+        #maybe read all items first to make json item list
+        #https://www.geeksforgeeks.org/append-to-json-file-using-python/
+        with open('LinkDB.json', 'a+') as f:
+            json.dump(Save_Data, f)
+
     def Order66(self):
         ActivPlayers.remove(self.Play)
         self.Play.StopSound()
@@ -55,10 +66,6 @@ class MainSetup(BoxLayout):
 
         #måste ha en gridlayout som mellan ting
 
-
-#size_hint_y: None
-#            height: self.minimum_height
-#            width: self.minimum_width
 
 class SoundBoardApp(App):
     def build(self):
