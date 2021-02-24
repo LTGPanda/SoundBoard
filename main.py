@@ -1,8 +1,6 @@
 import VideoClass as VC
 from kivy.app import App
 #https://github.com/inclement/kivycrashcourse
-#https://www.xspdf.com/resolution/57414007.html
-#https://www.reddit.com/r/kivy/comments/b90b4x/scrollview_not_working_for_gridlayout/
 from kivy.config import Config
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
@@ -14,7 +12,7 @@ global ActivPlayers, ent, Sliddas #hwo bo dees
 ActivPlayers, Sliddas = [], [] #do i do the need?
 
 class SoundControl(BoxLayout):
-    The_Slider = ObjectProperty()#clean upp?
+    The_Slider = ObjectProperty()
     def __init__(self, play, root, **kwargs):
         self.Play = play
         self.root = root
@@ -48,12 +46,19 @@ class MainSetup(BoxLayout):
         
         Play = VC.Playa(str(self.ids['Link_input'].text), None)
         Play.PlayCon()
-        
-        MainApp.add_widget(SoundControl(Play, self))
-
+        Added_Lad = SoundControl(Play, self)
+        MainApp.add_widget(Added_Lad)
+        Sliddas.append(Added_Lad)
         ActivPlayers.append(Play)
+        LastPlayer = Play
+        LastControll = Added_Lad
 
-        #måste ha en gridlayout som mellan ting
+        #Added_Lad.ids['Da_Slider'].on_touch_move(Added_Lad.VolComand(Added_Lad, Play.Instas))
+        #Event_Binder(Added_Lad, Play)
+        #Exception has occurred: AttributeError
+        #'NoneType' object has no attribute 'grab_current'
+        #Added_Lad.ids['Death'].on_press(Added_Lad.Order66(Play))
+        #Added_Lad.ids['PP'].on_press(Added_Lad.BigPP(Play, Sliddas))
 
  
 class SoundBoardApp(App):
