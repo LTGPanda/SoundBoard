@@ -14,7 +14,13 @@
             width: 100
             text:'...'
     ScrollView:
-        id: Scroller
+        GridLayout:
+            id: Scroller
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            width: self.minimum_width
+            
 
 <SoundControl>:
     orientation: 'vertical'
