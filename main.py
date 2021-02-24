@@ -6,6 +6,7 @@ from kivy.app import App
 from kivy.config import Config
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
+from kivy.uix.gridlayout import GridLayout
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '500')
 
@@ -48,14 +49,17 @@ class MainSetup(BoxLayout):
         
         Play = VC.Playa(str(self.ids['Link_input'].text), None)
         Play.PlayCon()
-        
         MainApp.add_widget(SoundControl(Play, self))
 
         ActivPlayers.append(Play)
 
         #måste ha en gridlayout som mellan ting
 
- 
+
+#size_hint_y: None
+#            height: self.minimum_height
+#            width: self.minimum_width
+
 class SoundBoardApp(App):
     def build(self):
         return MainSetup()
