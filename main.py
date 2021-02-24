@@ -10,7 +10,7 @@ Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '500')
 
 from kivy.uix.boxlayout import BoxLayout
-global ActivPlayers, ent, Sliddas
+global ActivPlayers, ent, Sliddas #hwo bo dees
 ActivPlayers, Sliddas = [], [] #do i do the need?
 
 class SoundControl(BoxLayout):
