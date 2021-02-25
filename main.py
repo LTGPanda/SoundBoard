@@ -1,5 +1,6 @@
 import VideoClass as VC
 import json
+import os.path
 from kivy.app import App
 #https://github.com/inclement/kivycrashcourse
 #https://www.xspdf.com/resolution/57414007.html
@@ -33,15 +34,32 @@ class SoundControl(BoxLayout):
     def BigPP(self):
         self.Play.PauseSound()
 
+    def Createjson(self):
+        with open('LinkDB.json', 'w+') as f:
+            saveData = {
+                'SavedLink': []
+            }
+            json.dump(saveData, f)
+            f.close()
+
     def SaveLad(self):
+        if os.path.isfile('LinkDB.json') == False:
+            self.Createjson()
+
         Save_Data = {
             'Name': str(self.ids['SoundName'].text),
             'Link' : str(self.Play.GetUrl())
         }
         #maybe read all items first to make json item list
         #https://www.geeksforgeeks.org/append-to-json-file-using-python/
-        with open('LinkDB.json', 'a+') as f:
-            json.dump(Save_Data, f)
+        with open('LinkDB.json', 'r') as f:
+            data = json.load(f)
+            temp = data['SavedLink']
+            temp.append(Save_Data)
+            f.close()
+
+        with open('LinkDB.json', 'w') as f:
+            json.dump(data, f, indent=4)
 
     def Order66(self):
         ActivPlayers.remove(self.Play)
