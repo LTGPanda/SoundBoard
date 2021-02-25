@@ -2,13 +2,11 @@ import VideoClass as VC
 import json
 import os.path
 from kivy.app import App
-#https://github.com/inclement/kivycrashcourse
-#https://www.xspdf.com/resolution/57414007.html
-#https://www.reddit.com/r/kivy/comments/b90b4x/scrollview_not_working_for_gridlayout/
 from kivy.config import Config
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.screenmanager import ScreenManager, Screen
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '500')
 
@@ -34,6 +32,11 @@ class SoundControl(BoxLayout):
     def BigPP(self):
         self.Play.PauseSound()
 
+    def Order66(self):
+        ActivPlayers.remove(self.Play)
+        self.Play.StopSound()
+        self.parent.remove_widget(self)
+
     def Createjson(self):
         with open('LinkDB.json', 'w+') as f:
             saveData = {
@@ -50,8 +53,6 @@ class SoundControl(BoxLayout):
             'Name': str(self.ids['SoundName'].text),
             'Link' : str(self.Play.GetUrl())
         }
-        #maybe read all items first to make json item list
-        #https://www.geeksforgeeks.org/append-to-json-file-using-python/
         with open('LinkDB.json', 'r') as f:
             data = json.load(f)
             temp = data['SavedLink']
@@ -61,10 +62,9 @@ class SoundControl(BoxLayout):
         with open('LinkDB.json', 'w') as f:
             json.dump(data, f, indent=4)
 
-    def Order66(self):
-        ActivPlayers.remove(self.Play)
-        self.Play.StopSound()
-        self.parent.remove_widget(self)
+class Loader(App):
+    def LoadLinks():
+        print("cunt")
 
 class MainSetup(BoxLayout):
     def get_slider_val(self, *args):
@@ -82,8 +82,8 @@ class MainSetup(BoxLayout):
 
         ActivPlayers.append(Play)
 
-        #måste ha en gridlayout som mellan ting
-
+    def LoadLoader(self):
+        Loader()
 
 class SoundBoardApp(App):
     def build(self):

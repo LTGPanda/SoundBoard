@@ -1,13 +1,15 @@
 SoundBoard Main:
     -fix ui
-        --gör saker snyggare
-        --scroleble
+        --gör saker snyggare @done
+        --scroleble @done
         --placeringen på knappar
+        --load ui
     -säg till att alla knappar funkar
-        --avstängande knapp
+        --avstängande knapp @done
     -funktioner
-        --databass från rbp
-        --ge namn till activa ljud
+        --database @done
+        --ge namn till activa ljud @done
         --kunna spara länken, namnen och taggen
         --ladda dessa sparade länkar
         --sök funktion (lables kanske)
+        --Time skip BUTTs
