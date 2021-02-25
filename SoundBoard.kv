@@ -1,31 +1,32 @@
 #:kivy 2.0.0
 <MainSetup>:
-    orientation: 'vertical'
-    id: Main_Box
     BoxLayout:
-        size_hint_y: None
-        height: 50
-        TextInput:
-            id: Link_input
-            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-        Button:
-            size_hint_x: None
-            on_press: root.Add_Sound_Control()
-            width: 50
-            text:'...'
-        Button:
-            text: 'Load'
-            size_hint_x: None
-            width: 50
-            on_press: root.LoadLoader()
-    ScrollView:
-        GridLayout:
-            id: Scroller
-            rows: 1
-            size_hint_x: None
-            width: self.minimum_width
-            col_force_default: True
-            col_default_width: dp(300)
+        orientation: 'vertical'
+        id: Main_Box
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            TextInput:
+                id: Link_input
+                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+            Button:
+                size_hint_x: None
+                on_press: root.Add_Sound_Control(self.ids['Link_input'].text)
+                width: 50
+                text:'...'
+            Button:
+                text: 'Load'
+                size_hint_x: None
+                width: 50
+                on_press: root.manager.current = 'SoundLoader'
+        ScrollView:
+            GridLayout:
+                id: Scroller
+                rows: 1
+                size_hint_x: None
+                width: self.minimum_width
+                col_force_default: True
+                col_default_width: dp(300)
 
 <SoundControl>:
     orientation: 'vertical'
@@ -77,6 +78,36 @@
     Widget:
 
 <Loader>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
+            Button:
+                text: 'Back'
+                on_press: 
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'Soundboard'
+                size_hint_x: None
+                width: 100
+            Label:
+                text: 'Saved Sounds'
+        ScrollView:
+            GridLayout:
+                id: Scrolly
+                col: 1
+                size_hint_y: None
+                height: self.minimum_height
+                row_force_default: True
+                row_default_height: dp(26)
+
+<LoadedItem>:
     Label:
-        text: 'Saved Sounds'
+        text: 'root.namn'
+    Button:
+        text: 'Load'
+        on_press: root.LoadLink()
+        size_hint_x: None
+        width: 100
     
