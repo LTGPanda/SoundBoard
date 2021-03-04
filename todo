@@ -10,6 +10,8 @@ SoundBoard Main:
         --database @done
         --ge namn till activa ljud @done
         --kunna spara länken, namnen och taggen
-        --ladda dessa sparade länkar
+        --ladda dessa sparade länkar @done
         --sök funktion (lables kanske)
         --Time skip BUTTs
+    -Bugs
+        --null url input

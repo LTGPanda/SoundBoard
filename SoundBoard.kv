@@ -11,7 +11,7 @@
                 padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
             Button:
                 size_hint_x: None
-                on_press: root.Add_Sound_Control(self.ids['Link_input'].text)
+                on_press: root.Add_Sound_Control(root.ids['Link_input'].text)
                 width: 50
                 text:'...'
             Button:
@@ -95,19 +95,28 @@
                 text: 'Saved Sounds'
         ScrollView:
             GridLayout:
-                id: Scrolly
-                col: 1
+                id: ScrollyLad
+                cols: 1
                 size_hint_y: None
                 height: self.minimum_height
-                row_force_default: True
-                row_default_height: dp(26)
+                rows_force_default: True
+                rows_default_height: dp(100)
+                row_default_height: 40
+                Widget:
+
 
 <LoadedItem>:
-    Label:
-        text: 'root.namn'
-    Button:
-        text: 'Load'
-        on_press: root.LoadLink()
-        size_hint_x: None
-        width: 100
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            id: DaLabel
+            text: root.Name
+        Button:
+            text: 'Load'
+            on_press: 
+                root.parent.parent.parent.parent.manager.get_screen('Soundboard').Add_Sound_Control(root.URL)
+                root.parent.parent.parent.parent.manager.current = 'Soundboard'
+            size_hint_x: None
+            width: 100
     

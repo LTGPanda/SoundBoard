@@ -1,6 +1,7 @@
 import VideoClass as VC
 import json
 import os.path
+
 from kivy.app import App
 from kivy.config import Config
 from kivy.properties import ObjectProperty
@@ -54,16 +55,22 @@ class SoundControl(BoxLayout):
             json.dump(data, f, indent=4)
 
 class LoadedItem(BoxLayout):
-    #def __init__(self, *args):
-    #    pass
+    def __init__(self, *args, **kwargs):
+        self.Name = "STDN"
+        self.URL = "STDNURL"
+        super(LoadedItem, self).__init__(**kwargs)
+
+    def Update(self):
+        self.ids['DaLabel'].text = self.Name
 
     def LoadLink(self, *args):
         #self.manager.
         #OtherScreen = App.root_window.get_screen('Soundboard')
         #self.parent.ms.current = 'Soundboard'
-        #self.root.manager.current = 'Soundboard'
+        self.root.manager.current = 'Soundboard'
         #self.manager.current.Add_Sound_Control(self.data['Link'])
-        self.manager.get_screen('Soundboard').Add_Sound_Control(self.url)
+        #self.parent.root.manager.get_screen('Soundboard').Add_Sound_Control(self.URL)
+        
         #no rows or cols set fuk
 
 class Loader(Screen):
@@ -91,20 +98,17 @@ class Loader(Screen):
     def LoadSettup(self):
         self.FileLoad()
         for item in self.data:
-            #MainGrid = GridLayout()
-            #MainGrid.add_widget(Label(text=item['Name']))
-#
-            #BUTT = Button(text='Load')
-            #BUTT.size_hint_x = None
-            #BUTT.width = 100
-            #url = item['Link']
-            #BUTT.bind(on_press=self.LoadLink(url))
-#
-            #MainGrid.add_widget(BUTT)
+            print(item['Name'])
             newItem = LoadedItem()
-            newItem.url = item['Link']
-            newItem.namn = item['Name']
-            self.ids['Scrolly'].add_widget(newItem)
+            newItem.URL = item['Link']
+            newItem.Name = item['Name']
+            newItem.Update()
+            self.ids['ScrollyLad'].add_widget(newItem)
+            #self.ids['ScrollyLad'].add_widget(LoadedItem(item['Name'], item['Link']))
+        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
+        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
+        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
+        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
 
 
 class MainSetup(Screen):
