@@ -63,16 +63,6 @@ class LoadedItem(BoxLayout):
     def Update(self):
         self.ids['DaLabel'].text = self.Name
 
-    def LoadLink(self, *args):
-        #self.manager.
-        #OtherScreen = App.root_window.get_screen('Soundboard')
-        #self.parent.ms.current = 'Soundboard'
-        self.root.manager.current = 'Soundboard'
-        #self.manager.current.Add_Sound_Control(self.data['Link'])
-        #self.parent.root.manager.get_screen('Soundboard').Add_Sound_Control(self.URL)
-        
-        #no rows or cols set fuk
-
 class Loader(Screen):
     def __init__(self, **kwargs):
         super(Loader, self).__init__(**kwargs)
