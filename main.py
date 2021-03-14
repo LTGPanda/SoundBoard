@@ -5,18 +5,14 @@ import requests
 
 from kivy.app import App#clean up
 from kivy.config import Config
-from kivy.properties import ObjectProperty
-from kivy.clock import Clock
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
-from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '500')
 
 class SoundControl(BoxLayout):
-    The_Slider = ObjectProperty()#clean upp?
     def __init__(self, play, root, **kwargs):
         self.Play = play
         self.root = root
