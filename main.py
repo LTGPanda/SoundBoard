@@ -33,12 +33,11 @@ class SoundControl(BoxLayout):
         self.Play.StopSound()
         self.parent.remove_widget(self)
 
-    def SaveLad(self, tags):#TODO parse Tags, fix att save butt inte sparar men startar popup
+    def SaveLad(self):#TODO parse Tags, fix att save butt inte sparar men startar popup
         Save_Data = {
             'Name': str(self.ids['SoundName'].text),
             'Link' : str(self.Play.GetUrl()),
-            'tags' : tags
-        }#tags ska vara str?
+        }
         with open('LinkDB.json', 'r') as f:
             data = json.load(f)
             temp = data['SavedLink']
@@ -67,10 +66,10 @@ class Loader(Screen):
         self.LoadSettup()
         print(self.data)
 
+#'Tags' : ['Forest', 'city', 'Sea', 'Market', 'Boat', 'Tavern', 'Battle', 'Battle-Epic', 'Royal', 'Death', 'Cave', 'Dungeon'],
     def Createjson(self):
         with open('LinkDB.json', 'w+') as f:
             saveData = {
-                'Tags' : ['Forest', 'city', 'Sea', 'Market', 'Boat', 'Tavern', 'Battle', 'Battle-Epic', 'Royal', 'Death', 'Cave', 'Dungeon'],
                 'SavedLink': []
             }
             json.dump(saveData, f)
@@ -82,7 +81,6 @@ class Loader(Screen):
         with open('LinkDB.json', 'r') as f:
             data = json.load(f)
             self.data = data['SavedLink']
-            self.Tags = data['Tags']
             f.close()
 
     def LoadSettup(self):
