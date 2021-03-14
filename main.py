@@ -3,7 +3,7 @@ import json
 import os.path
 import requests
 
-from kivy.app import App
+from kivy.app import App#clean up
 from kivy.config import Config
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
@@ -11,29 +11,9 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '500')
-
-from kivy.uix.boxlayout import BoxLayout
-
-class Popups(BoxLayout):
-    def __init__(self, Tags, SControl, **kwargs):
-        self.Tags = Tags
-        self.SC = SControl
-        for Tag in self.Tags:
-            pass
-        super(Popups, self).__init__(**kwargs)
-
-    def On_Check(self):
-        pass
-
-def Popup_popupp(Tags):
-    show = Popups(Tags) 
-  
-    popupWindow = Popup(title ="Tags", content = show, size_hint =(None, None), size =(200, 400)) 
-    
-    popupWindow.open() 
 
 class SoundControl(BoxLayout):
     The_Slider = ObjectProperty()#clean upp?
@@ -57,13 +37,12 @@ class SoundControl(BoxLayout):
         self.Play.StopSound()
         self.parent.remove_widget(self)
 
-    def SaveLad(self):#TODO Tags
-
-
+    def SaveLad(self, tags):#TODO parse Tags, fix att save butt inte sparar men startar popup
         Save_Data = {
             'Name': str(self.ids['SoundName'].text),
-            'Link' : str(self.Play.GetUrl())
-        }
+            'Link' : str(self.Play.GetUrl()),
+            'tags' : tags
+        }#tags ska vara str?
         with open('LinkDB.json', 'r') as f:
             data = json.load(f)
             temp = data['SavedLink']
@@ -73,6 +52,8 @@ class SoundControl(BoxLayout):
         with open('LinkDB.json', 'w') as f:
             json.dump(data, f, indent=4)
 
+
+
 class LoadedItem(BoxLayout):
     def __init__(self, *args, **kwargs):
         self.Name = "STDN"
@@ -81,6 +62,8 @@ class LoadedItem(BoxLayout):
 
     def Update(self):
         self.ids['DaLabel'].text = self.Name
+
+
 
 class Loader(Screen):
     def __init__(self, **kwargs):
@@ -108,7 +91,6 @@ class Loader(Screen):
 
     def LoadSettup(self):
         self.FileLoad()
-        Popup_popupp(self.Tags)
         for item in self.data:
             print(item['Name'])
             newItem = LoadedItem()
@@ -116,6 +98,7 @@ class Loader(Screen):
             newItem.Name = item['Name']
             newItem.Update()
             self.ids['ScrollyLad'].add_widget(newItem)
+
 
 
 class MainSetup(Screen):
@@ -128,12 +111,13 @@ class MainSetup(Screen):
     def Add_Sound_Control(self, url):
         match = "https://www.youtube.com/watch"
         i = 0
-        if(url == ""):
+        if url == "":
             return
         for char in match:
-            if(char != url[i]):
+            if char != url[i]:
                 return
             i += 1
+
         try:
             response = requests.get(url)
             MainApp = self.ids['Scroller']
