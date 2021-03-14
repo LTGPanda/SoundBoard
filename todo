@@ -1,10 +1,10 @@
 SoundBoard Main:
-    -fix ui
+    -fix ui @done
         --gör saker snyggare @done
         --scroleble @done
-        --placeringen på knappar
-        --load ui
-    -säg till att alla knappar funkar
+        --placeringen på knappar @done
+        --load ui @done
+    -säg till att alla knappar funkar @done
         --avstängande knapp @done
     -funktioner
         --database @done
@@ -12,6 +12,7 @@ SoundBoard Main:
         --kunna spara länken, namnen och taggen
         --ladda dessa sparade länkar @done
         --sök funktion (lables kanske)
-        --Time skip BUTTs
+        --Time skip BUTTs (is posible?)
+        --SLow or spood up(do i realy wanna?)
     -Bugs
-        --null url input
+        --null url input @done

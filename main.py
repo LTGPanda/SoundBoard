@@ -1,6 +1,7 @@
 import VideoClass as VC
 import json
 import os.path
+import requests
 
 from kivy.app import App
 from kivy.config import Config
@@ -10,12 +11,29 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.popup import Popup
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '500')
 
 from kivy.uix.boxlayout import BoxLayout
-global ActivPlayers, ent, Sliddas #hwo bo dees
-ActivPlayers, Sliddas = [], [] #do i do the need?
+
+class Popups(BoxLayout):
+    def __init__(self, Tags, SControl, **kwargs):
+        self.Tags = Tags
+        self.SC = SControl
+        for Tag in self.Tags:
+            pass
+        super(Popups, self).__init__(**kwargs)
+
+    def On_Check(self):
+        pass
+
+def Popup_popupp(Tags):
+    show = Popups(Tags) 
+  
+    popupWindow = Popup(title ="Tags", content = show, size_hint =(None, None), size =(200, 400)) 
+    
+    popupWindow.open() 
 
 class SoundControl(BoxLayout):
     The_Slider = ObjectProperty()#clean upp?
@@ -36,11 +54,12 @@ class SoundControl(BoxLayout):
         self.Play.PauseSound()
 
     def Order66(self):
-        ActivPlayers.remove(self.Play)
         self.Play.StopSound()
         self.parent.remove_widget(self)
 
-    def SaveLad(self):
+    def SaveLad(self):#TODO Tags
+
+
         Save_Data = {
             'Name': str(self.ids['SoundName'].text),
             'Link' : str(self.Play.GetUrl())
@@ -57,7 +76,7 @@ class SoundControl(BoxLayout):
 class LoadedItem(BoxLayout):
     def __init__(self, *args, **kwargs):
         self.Name = "STDN"
-        self.URL = "STDNURL"
+        self.URL = "STDN-URL"
         super(LoadedItem, self).__init__(**kwargs)
 
     def Update(self):
@@ -72,6 +91,7 @@ class Loader(Screen):
     def Createjson(self):
         with open('LinkDB.json', 'w+') as f:
             saveData = {
+                'Tags' : ['Forest', 'city', 'Sea', 'Market', 'Boat', 'Tavern', 'Battle', 'Battle-Epic', 'Royal', 'Death', 'Cave', 'Dungeon'],
                 'SavedLink': []
             }
             json.dump(saveData, f)
@@ -83,10 +103,12 @@ class Loader(Screen):
         with open('LinkDB.json', 'r') as f:
             data = json.load(f)
             self.data = data['SavedLink']
+            self.Tags = data['Tags']
             f.close()
 
     def LoadSettup(self):
         self.FileLoad()
+        Popup_popupp(self.Tags)
         for item in self.data:
             print(item['Name'])
             newItem = LoadedItem()
@@ -94,11 +116,6 @@ class Loader(Screen):
             newItem.Name = item['Name']
             newItem.Update()
             self.ids['ScrollyLad'].add_widget(newItem)
-            #self.ids['ScrollyLad'].add_widget(LoadedItem(item['Name'], item['Link']))
-        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
-        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
-        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
-        #self.ids['ScrollyLad'].add_widget(Label(text='Label : '+ "wow"))
 
 
 class MainSetup(Screen):
@@ -109,13 +126,27 @@ class MainSetup(Screen):
         label.text = str(int(slidy.value))
 
     def Add_Sound_Control(self, url):
-        MainApp = self.ids['Scroller']
+        match = "https://www.youtube.com/watch"
+        i = 0
+        if(url == ""):
+            return
+        for char in match:
+            if(char != url[i]):
+                return
+            i += 1
+        try:
+            response = requests.get(url)
+            MainApp = self.ids['Scroller']
         
-        Play = VC.Playa(str(url), None)
-        Play.PlayCon()
-        MainApp.add_widget(SoundControl(Play, self))
+            Play = VC.Playa(str(url), None)
+            Play.PlayCon()
+            MainApp.add_widget(SoundControl(Play, self))
 
-        ActivPlayers.append(Play)
+
+        except requests.ConnectionError as exception:
+            return
+
+        
 
 class SoundBoardApp(App):
     def build(self):#taken straight from the kivy docs
